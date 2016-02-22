@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Audio_Swap</title>
+
+    <!-- WinJS references -->
+    <link href="WinJS/css/ui-light.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Custom CSS here -->
+    <link href="/css/global.css" rel="stylesheet" />
+    <link href="/css/app-page.css" rel="stylesheet" />
+
+    <!-- Custom JS here -->
+    <script src="/js/align-clips.js"></script>
+    <script src="/js/choose-clips.js"></script>
+    <script src="/js/export-video.js"></script>
+    <script src="/js/nav-state.js"></script>
+    <script src="/js/platform.js"></script>
+    <script src="/js/state.js"></script>
+
+    <!-- default.js should be last -->
+    <script src="/js/default.js"></script>
+</head>
+<body class="win-type-body">
+    <div class="app-page app-page--choose-clips app-page--visible">
+        <div class="app-page__inner">
+            <section class="app-page__content">
+                <h2 class="win-h2">Choose clips</h2>
+                <h3 class="win-h3">Video</h3>
+                <p><button class="win-button choose-clip-button" data-choose-clip-button="video">Browse&hellip;</button></p>
+                <p>Selected clip: <code class="choose-clip-label choose-clip-label--video"></code><code></code></p>
+
+                <h3 class="win-h3">Audio</h3>
+                <p><button class="win-button choose-clip-button" data-choose-clip-button="audio">Browse&hellip;</button></p>
+                <p>Selected clip: <code class="choose-clip-label choose-clip-label--audio"></code></p>
+            </section>
+            <section class="app-page__controls">
+                <button class="win-button win-button-primary choose-clip-next-step" disabled>Next</button>
+            </section>
+        </div>
+    </div>
+
+    <div class="app-page app-page--align-clips">
+        <div class="app-page__inner">
+            <h2 class="win-h2">Align clips</h2>
+            
+            <video class="app-page__content align-clips-preview" controls></video>
+            <section class="app-page__content">
+                <p>
+                    <label for="align-clips-delay-label">Audio start time:</label><br />
+                    <input class="win-textbox" id="align-clips-delay-label" type="number" placeholder="0" disabled />
+                </p>
+            </section>
+            <section class="app-page__controls">
+                <button class="win-button win-button-primary align-clips-next-step">Next</button>
+            </section>
+        </div>
+    </div>
+
+    <div class="app-page app-page--export-video">
+        <div class="app-page__inner">
+            <h2 class="win-h2">Export video</h2>
+            <section class="app-page__content">
+                <h3 class="win-h3">Destination</h3>
+                <p><button class="win-button choose-destination-button">Browse&hellip;</button></p>
+                <p>File: <code class="choose-destination-label"></code></p>
+            </section>
+            <section class="app-page__controls">
+                <button class="win-button win-button-primary export-clips-start-render" disabled>Export</button>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
