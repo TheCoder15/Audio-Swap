@@ -4,6 +4,8 @@
         init: function () {
             AudioSwap.NavState.pushState(this._listeners.previousStep);
 
+            document.querySelector(".align-clips-audio-delay").addEventListener("change", this._listeners.audioDelayChanged);
+            document.querySelector(".align-clips-audio-delay").addEventListener("keydown", this._listeners.audioDelayKeydown);
             document.querySelector(".align-clips-next-step").addEventListener("click", this._listeners.nextStep);
 
             AudioSwap.State.composition = new Windows.Media.Editing.MediaComposition();
@@ -11,8 +13,11 @@
         },
 
         unload: function () {
+            document.querySelector(".align-clips-audio-delay").removeEventListener("change", this._listeners.audioDelayChanged);
+            document.querySelector(".align-clips-audio-delay").removeEventListener("keydown", this._listeners.audioDelayKeydown);
             document.querySelector(".align-clips-next-step").removeEventListener("click", this._listeners.nextStep);
             AudioSwap.State.composition = null;
+            AudioSwap.State.audioDelay = 0;
             document.querySelector(".align-clips-preview").src = null;
         },
 
@@ -30,6 +35,30 @@
             audioInitFinished: function (audioStream) {
                 AudioSwap.State.composition.backgroundAudioTracks.append(audioStream);
                 AudioSwap.AlignClips.updateMediaPreviousSrc();
+            },
+
+            audioDelayChanged: function (event) {
+                console.log("Audio delay changed.");
+
+                let audioDelay = parseInt(event.currentTarget.value, 10);
+                if (isNaN(audioDelay)) audioDelay = 0;
+                AudioSwap.State.audioDelay = audioDelay;
+
+                if (0 > audioDelay) {
+                    AudioSwap.State.composition.backgroundAudioTracks[0].delay = 0;
+                    AudioSwap.State.composition.backgroundAudioTracks[0].trimTimeFromStart = Math.abs(audioDelay);
+                }
+                else {
+                    AudioSwap.State.composition.backgroundAudioTracks[0].delay = audioDelay;
+                    AudioSwap.State.composition.backgroundAudioTracks[0].trimTimeFromStart = 0;
+                }
+
+                
+                AudioSwap.AlignClips.updateMediaPreviousSrc();
+            },
+
+            audioDelayKeydown: function (event) {
+                if (event.keyCode == 13) event.currentTarget.blur();
             },
 
             nextStep: function () {

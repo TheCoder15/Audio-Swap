@@ -5,6 +5,8 @@
         selectedVideo: null,
         selectedAudio: null,
         composition: null,
-        destinationFile: null
+        destinationFile: null,
+        audioDelay: 0,
+        exportOriginalAudioMuted: true
     });
 })();

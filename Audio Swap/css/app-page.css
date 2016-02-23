@@ -32,5 +32,12 @@
 
 .app-page__controls {
     padding-top: 1em;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.app-page__controls-flex-content {
+    flex: 1;
+    margin-right: 1em;
 }

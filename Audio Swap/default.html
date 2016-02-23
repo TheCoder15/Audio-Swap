@@ -50,8 +50,8 @@
             <video class="app-page__content align-clips-preview" controls></video>
             <section class="app-page__content">
                 <p>
-                    <label for="align-clips-delay-label">Audio start time:</label><br />
-                    <input class="win-textbox" id="align-clips-delay-label" type="number" placeholder="0" disabled />
+                    <label for="align-clips-audio-delay">Audio delay (milliseconds):</label><br />
+                    <input class="win-textbox align-clips-audio-delay" id="align-clips-audio-delay" type="number" placeholder="0" />
                 </p>
             </section>
             <section class="app-page__controls">
@@ -67,8 +67,11 @@
                 <h3 class="win-h3">Destination</h3>
                 <p><button class="win-button choose-destination-button">Browse&hellip;</button></p>
                 <p>File: <code class="choose-destination-label"></code></p>
+                <h3 class="win-h3">Options</h3>
+                <p><label><input type="checkbox" class="win-checkbox export-original-audio-muted" checked />Replace original audio</label></p>
             </section>
             <section class="app-page__controls">
+                <progress class="app-page__controls-flex-content win-progress-bar export-video-progress" max="100" value="0"></progress>
                 <button class="win-button win-button-primary export-clips-start-render" disabled>Export</button>
             </section>
         </div>
