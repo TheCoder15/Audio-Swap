@@ -8,6 +8,9 @@
             document.querySelector(".align-clips-audio-delay").addEventListener("keydown", this._listeners.audioDelayKeydown);
             document.querySelector(".align-clips-next-step").addEventListener("click", this._listeners.nextStep);
 
+            document.querySelector(".align-clips-timeline__media-track--video").style.width = (AudioSwap.State.selectedVideoProperties.duration / AudioSwap.Settings.getSetting("msPerPixel")) + "px";
+            document.querySelector(".align-clips-timeline__media-track--audio").style.width = (AudioSwap.State.selectedAudioProperties.duration / AudioSwap.Settings.getSetting("msPerPixel")) + "px";
+
             AudioSwap.State.composition = new Windows.Media.Editing.MediaComposition();
             Windows.Media.Editing.MediaClip.createFromFileAsync(AudioSwap.State.selectedVideo).then(this._listeners.videoInitFinished);
         },

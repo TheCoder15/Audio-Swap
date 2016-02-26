@@ -1,0 +1,49 @@
+﻿.align-clips-playback-controls {
+    position: relative;
+}
+
+.align-clips-playback-time {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 48px;
+}
+
+.align-clips-playback-controls .win-toolbar-overflowbutton {
+    display: none;
+}
+
+.align-clips-playback-controls .win-toolbar-actionarea {
+    justify-content: center;
+}
+
+button.win-command.align-clips-fullscreen-button {
+    position: absolute;
+    right: 0;
+}
+
+.align-clips-timeline {
+    height: 100px;
+    position: relative;
+    border: 1px solid #aaa;
+    border-left: 0;
+    border-right: 0;
+    background-color: #fff;
+    margin: 1em 0;
+    overflow-x: auto;
+}
+
+.align-clips-timeline__media-track {
+    position: absolute;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.align-clips-timeline__media-track--video {
+    top: 0;
+}
+
+.align-clips-timeline__media-track--audio {
+    bottom: 0;
+}

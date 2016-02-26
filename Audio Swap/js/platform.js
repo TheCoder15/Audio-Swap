@@ -13,6 +13,7 @@
             // Perform general setup tasks here:
             AudioSwap.NavState.init();
             AudioSwap.ChooseClips.init();
+            args.setPromise(WinJS.UI.processAll());
 
             // Additional launch tasks that depend on how Audio Swap was launched:
             switch (args.detail.kind) {

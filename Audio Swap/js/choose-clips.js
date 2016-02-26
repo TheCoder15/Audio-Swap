@@ -29,13 +29,13 @@
                         console.log("Browse for videos.");
                         openPicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.videosLibrary;
                         openPicker.fileTypeFilter.replaceAll(AudioSwap.Platform.supportedVideoTypes);
-                        openPicker.pickSingleFileAsync().done(AudioSwap.ChooseClips._listeners.pickedVideo);
+                        openPicker.pickSingleFileAsync().then(AudioSwap.ChooseClips._listeners.pickedVideo);
                         break;
                     case "audio":
                         console.log("Browse for audio.");
                         openPicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.videosLibrary;
                         openPicker.fileTypeFilter.replaceAll(AudioSwap.Platform.supportedAudioTypes);
-                        openPicker.pickSingleFileAsync().done(AudioSwap.ChooseClips._listeners.pickedAudio);
+                        openPicker.pickSingleFileAsync().then(AudioSwap.ChooseClips._listeners.pickedAudio);
                         break;
                 }
             },
@@ -44,8 +44,8 @@
                 if (file) {
                     console.log("Picked video file.");
                     AudioSwap.State.selectedVideo = file;
-                    document.querySelector(".choose-clip-label--video").innerText = file.name;
-                    AudioSwap.ChooseClips.checkClips();
+                    file.properties.getVideoPropertiesAsync().done(AudioSwap.ChooseClips._listeners.retrievedVideoProperties);
+                    
                 }
             },
 
@@ -53,9 +53,20 @@
                 if (file) {
                     console.log("Picked audio file.");
                     AudioSwap.State.selectedAudio = file;
-                    document.querySelector(".choose-clip-label--audio").innerText = file.name;
-                    AudioSwap.ChooseClips.checkClips();
+                    file.properties.getMusicPropertiesAsync().done(AudioSwap.ChooseClips._listeners.retrievedAudioProperties);
                 }
+            },
+
+            retrievedVideoProperties: function (properties) {
+                AudioSwap.State.selectedVideoProperties = properties;
+                document.querySelector(".choose-clip-label--video").innerText = AudioSwap.State.selectedVideo.name;
+                AudioSwap.ChooseClips.checkClips();
+            },
+
+            retrievedAudioProperties: function (properties) {
+                AudioSwap.State.selectedAudioProperties = properties;
+                document.querySelector(".choose-clip-label--audio").innerText = AudioSwap.State.selectedAudio.name;
+                AudioSwap.ChooseClips.checkClips();
             },
 
             nextStep: function () {

@@ -11,6 +11,7 @@
 
     <!-- Custom CSS here -->
     <link href="/css/global.css" rel="stylesheet" />
+    <link href="/css/align-clips.css" rel="stylesheet" />
     <link href="/css/app-page.css" rel="stylesheet" />
 
     <!-- Custom JS here -->
@@ -19,6 +20,7 @@
     <script src="/js/export-video.js"></script>
     <script src="/js/nav-state.js"></script>
     <script src="/js/platform.js"></script>
+    <script src="/js/settings.js"></script>
     <script src="/js/state.js"></script>
 
     <!-- default.js should be last -->
@@ -47,12 +49,35 @@
         <div class="app-page__inner">
             <h2 class="win-h2">Align clips</h2>
             
-            <video class="app-page__content align-clips-preview" controls></video>
-            <section class="app-page__content">
+            <video class="align-clips-preview" controls></video>
+            <section class="align-clips-playback-controls">
+                <div data-win-control="WinJS.UI.ToolBar">
+                    <!-- Primary commands -->
+                    <button data-win-control="WinJS.UI.Command" data-win-options="{
+                    id:'cmdPlay',
+                    label:'Play',
+                    section:'primary',
+                    type:'button',
+                    icon: 'play'}"></button>
+                    <button class="align-clips-fullscreen-button" disabled data-win-control="WinJS.UI.Command" data-win-options="{
+                    id:'cmdFullScreen',
+                    label:'Full screen',
+                    section:'primary',
+                    type:'button',
+                    icon: 'fullscreen'}"></button>
+                </div>
+                <code class="align-clips-playback-time">00:00.000</code>
+            </section>
+            
+            <section>
                 <p>
                     <label for="align-clips-audio-delay">Audio delay (milliseconds):</label><br />
                     <input class="win-textbox align-clips-audio-delay" id="align-clips-audio-delay" type="number" placeholder="0" />
                 </p>
+            </section>
+            <section class="align-clips-timeline">
+                <div class="align-clips-timeline__media-track align-clips-timeline__media-track--video">video</div>
+                <div class="align-clips-timeline__media-track align-clips-timeline__media-track--audio">audio</div>
             </section>
             <section class="app-page__controls">
                 <button class="win-button win-button-primary align-clips-next-step">Next</button>

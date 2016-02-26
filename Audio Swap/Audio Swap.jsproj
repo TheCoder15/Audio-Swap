@@ -49,7 +49,7 @@
   <PropertyGroup>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>$(VersionNumberMajor).$(VersionNumberMinor)</MinimumVisualStudioVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>Audio Match_TemporaryKey.pfx</PackageCertificateKeyFile>
@@ -58,6 +58,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="css\align-clips.css" />
     <Content Include="css\global.css" />
     <Content Include="default.html" />
     <Content Include="images\LockScreenLogo.scale-200.png" />
@@ -73,6 +74,7 @@
     <Content Include="js\default.js" />
     <Content Include="css\app-page.css" />
     <Content Include="js\choose-clips.js" />
+    <Content Include="js\settings.js" />
     <Content Include="js\state.js" />
     <Content Include="js\platform.js" />
     <Content Include="WinJS\css\ui-dark.css" />
