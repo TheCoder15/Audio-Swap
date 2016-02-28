@@ -77,6 +77,7 @@
     <Content Include="js\settings.js" />
     <Content Include="js\state.js" />
     <Content Include="js\platform.js" />
+    <Content Include="js\time-converter.js" />
     <Content Include="WinJS\css\ui-dark.css" />
     <Content Include="WinJS\css\ui-light.css" />
     <Content Include="WinJS\fonts\Symbols.ttf" />

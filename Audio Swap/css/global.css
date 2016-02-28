@@ -1,3 +1,31 @@
-﻿video {
+﻿.app-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.app-title {
+    float: left;
+    line-height: 64px;
+}
+
+.app-page-title {
+    float: left;
+    line-height: 64px;
+    color: #ccc;
+}
+
+.app-page-title::before {
+    content: "";
+    font-size: 22px;
+    margin: 0.5em;
+}
+
+.app-page-title:first-of-type::before, .app-page-title--active + .app-page-title::before, .app-page-title--active {
+    color: #000;
+}
+
+video {
     background-color: #000;
 }

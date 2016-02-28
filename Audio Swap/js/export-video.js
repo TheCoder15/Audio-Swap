@@ -4,12 +4,15 @@
         init: function () {
             AudioSwap.NavState.pushState(this._listeners.previousStep);
 
+            document.querySelector(".app-page-title--export-video").classList.add("app-page-title--active");
+
             document.querySelector(".choose-destination-button").addEventListener("click", this._listeners.chooseDestinationButtonClicked);
             document.querySelector(".export-clips-start-render").addEventListener("click", this._listeners.exportButtonClicked);
             document.querySelector(".export-original-audio-muted").addEventListener("change", this._listeners.originalAudioMutedChanged);
         },
 
         unload: function () {
+            document.querySelector(".app-page-title--export-video").classList.remove("app-page-title--active");
             document.querySelector(".choose-destination-button").removeEventListener("click", this._listeners.chooseDestinationButtonClicked);
             document.querySelector(".export-clips-start-render").removeEventListener("click", this._listeners.exportButtonClicked);
             document.querySelector(".export-original-audio-muted").removeEventListener("change", this._listeners.originalAudioMutedChanged);

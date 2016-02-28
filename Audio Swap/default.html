@@ -22,84 +22,86 @@
     <script src="/js/platform.js"></script>
     <script src="/js/settings.js"></script>
     <script src="/js/state.js"></script>
+    <script src="/js/time-converter.js"></script>
 
     <!-- default.js should be last -->
     <script src="/js/default.js"></script>
 </head>
-<body class="win-type-body">
+<body class="win-type-body app-container">
+    <header class="app-header">
+        <h1 class="win-h1 app-title">Audio Swap</h1>
+        <h2 class="win-h2 app-page-title app-page-title--choose-clips app-page-title--active">1. Choose clips</h2>
+        <h2 class="win-h2 app-page-title app-page-title--align-clips">2. Adjust timing</h2>
+        <h2 class="win-h2 app-page-title app-page-title--export-video">3. Export video</h2>
+    </header>
     <div class="app-page app-page--choose-clips app-page--visible">
-        <div class="app-page__inner">
-            <section class="app-page__content">
-                <h2 class="win-h2">Choose clips</h2>
-                <h3 class="win-h3">Video</h3>
+        <section class="app-page__content app-page__content--choose-clips">
+            <div class="choose-clip-dropzone" data-choose-clip-dropzone="video">
+                <h3 class="win-h3">Drop video here</h3>
                 <p><button class="win-button choose-clip-button" data-choose-clip-button="video">Browse&hellip;</button></p>
-                <p>Selected clip: <code class="choose-clip-label choose-clip-label--video"></code><code></code></p>
-
-                <h3 class="win-h3">Audio</h3>
+                <p><code class="choose-clip-label choose-clip-label--video"></code></p>
+            </div>
+            <div class="choose-clip-dropzone" data-choose-clip-dropzone="audio">
+                <h3 class="win-h3">Drop audio here</h3>
                 <p><button class="win-button choose-clip-button" data-choose-clip-button="audio">Browse&hellip;</button></p>
-                <p>Selected clip: <code class="choose-clip-label choose-clip-label--audio"></code></p>
-            </section>
-            <section class="app-page__controls">
-                <button class="win-button win-button-primary choose-clip-next-step" disabled>Next</button>
-            </section>
-        </div>
+                <p><code class="choose-clip-label choose-clip-label--audio"></code></p>
+            </div>            
+        </section>
+        <section class="app-page__controls">
+            <button class="win-button win-button-primary choose-clip-next-step" disabled>Next</button>
+        </section>
     </div>
 
     <div class="app-page app-page--align-clips">
-        <div class="app-page__inner">
-            <h2 class="win-h2">Align clips</h2>
-            
-            <video class="align-clips-preview" controls></video>
-            <section class="align-clips-playback-controls">
+        <section class="app-page__content app-page__content--align-clips-preview-container">
+            <video class="align-clips-preview"></video>
+        </section>
+        <section class="app-page__content app-page__content--controls-container">
+            <div class="align-clips-playback-controls">
                 <div data-win-control="WinJS.UI.ToolBar">
                     <!-- Primary commands -->
-                    <button data-win-control="WinJS.UI.Command" data-win-options="{
-                    id:'cmdPlay',
-                    label:'Play',
-                    section:'primary',
-                    type:'button',
-                    icon: 'play'}"></button>
+                    <button class="align-clips-playpause-button" data-win-control="WinJS.UI.Command" data-win-options="{
+                        label:'Play',
+                        section:'primary',
+                        type:'button',
+                        icon: 'play'}"></button>
                     <button class="align-clips-fullscreen-button" disabled data-win-control="WinJS.UI.Command" data-win-options="{
-                    id:'cmdFullScreen',
-                    label:'Full screen',
-                    section:'primary',
-                    type:'button',
-                    icon: 'fullscreen'}"></button>
+                        label:'Full screen',
+                        section:'primary',
+                        type:'button',
+                        icon: 'fullscreen'}"></button>
                 </div>
                 <code class="align-clips-playback-time">00:00.000</code>
-            </section>
+            </div>
+        </section>
             
-            <section>
-                <p>
-                    <label for="align-clips-audio-delay">Audio delay (milliseconds):</label><br />
-                    <input class="win-textbox align-clips-audio-delay" id="align-clips-audio-delay" type="number" placeholder="0" />
-                </p>
-            </section>
-            <section class="align-clips-timeline">
-                <div class="align-clips-timeline__media-track align-clips-timeline__media-track--video">video</div>
-                <div class="align-clips-timeline__media-track align-clips-timeline__media-track--audio">audio</div>
-            </section>
-            <section class="app-page__controls">
-                <button class="win-button win-button-primary align-clips-next-step">Next</button>
-            </section>
-        </div>
+        <section>
+            <p>
+                <label for="align-clips-audio-delay">Audio delay (milliseconds):</label><br />
+                <input class="win-textbox align-clips-audio-delay" id="align-clips-audio-delay" type="number" placeholder="0" />
+            </p>
+        </section>
+        <section class="align-clips-timeline">
+            <div class="align-clips-timeline__media-track align-clips-timeline__media-track--video">video</div>
+            <div class="align-clips-timeline__media-track align-clips-timeline__media-track--audio">audio</div>
+        </section>
+        <section class="app-page__controls">
+            <button class="win-button win-button-primary align-clips-next-step">Next</button>
+        </section>
     </div>
 
     <div class="app-page app-page--export-video">
-        <div class="app-page__inner">
-            <h2 class="win-h2">Export video</h2>
-            <section class="app-page__content">
-                <h3 class="win-h3">Destination</h3>
-                <p><button class="win-button choose-destination-button">Browse&hellip;</button></p>
-                <p>File: <code class="choose-destination-label"></code></p>
-                <h3 class="win-h3">Options</h3>
-                <p><label><input type="checkbox" class="win-checkbox export-original-audio-muted" checked />Replace original audio</label></p>
-            </section>
-            <section class="app-page__controls">
-                <progress class="app-page__controls-flex-content win-progress-bar export-video-progress" max="100" value="0"></progress>
-                <button class="win-button win-button-primary export-clips-start-render" disabled>Export</button>
-            </section>
-        </div>
+        <section class="app-page__content">
+            <h3 class="win-h3">Destination</h3>
+            <p><button class="win-button choose-destination-button">Browse&hellip;</button></p>
+            <p>File: <code class="choose-destination-label"></code></p>
+            <h3 class="win-h3">Options</h3>
+            <p><label><input type="checkbox" class="win-checkbox export-original-audio-muted" checked />Replace original audio</label></p>
+        </section>
+        <section class="app-page__controls">
+            <progress class="app-page__controls-flex-content win-progress-bar export-video-progress" max="100" value="0"></progress>
+            <button class="win-button win-button-primary export-clips-start-render" disabled>Export</button>
+        </section>
     </div>
 </body>
 </html>

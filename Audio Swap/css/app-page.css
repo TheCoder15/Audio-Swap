@@ -1,32 +1,44 @@
 ﻿.app-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     display: none;
+    flex-direction: column;
+    flex: 1;
 }
 
 .app-page--visible {
-    display: block;
-}
-
-.app-page__inner {
     display: flex;
-    flex-direction: column;
-    background-color: #fafafa;
-    border: 1px solid #ddd;
-    border-top: 0;
-    border-bottom: 0;
-    width: 900px;
-    max-width: 100%;
-    height: 100%;
-    margin: auto;
-    box-sizing: border-box;
 }
 
 .app-page__content {
     flex: 1;
+}
+
+.app-page__content--choose-clips {
+    display: flex;
+}
+
+.choose-clip-dropzone {
+    flex: 1;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed #ccc;
+}
+
+.choose-clip-dropzone:last-of-type {
+    margin-left: 1rem;
+}
+
+.app-page__content--align-clips-preview-container {
+    flex: 1;
+    text-align: center;
+}
+
+.app-page__content--controls-container {
+    flex: none;
+    display: flex;
+    justify-content: center;
 }
 
 .app-page__controls {

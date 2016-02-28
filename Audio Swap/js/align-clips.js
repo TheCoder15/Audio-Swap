@@ -1,8 +1,20 @@
 ﻿(function () {
     "use strict";
     WinJS.Namespace.define("AudioSwap.AlignClips", {
+        timerActive: false,
+
         init: function () {
             AudioSwap.NavState.pushState(this._listeners.previousStep);
+
+            document.querySelector(".app-page-title--align-clips").classList.add("app-page-title--active");
+
+            document.querySelector(".align-clips-playpause-button").addEventListener("click", this._listeners.playpauseButtonClicked);
+
+            let previewVideo = document.querySelector(".align-clips-preview");
+            previewVideo.addEventListener("pause", this._listeners.previewPlayStateChanged);
+            previewVideo.addEventListener("play", this._listeners.previewPlayStateChanged);
+            previewVideo.addEventListener("playing", this._listeners.previewPlayStateChanged);
+            previewVideo.addEventListener("ended", this._listeners.previewPlayStateChanged);
 
             document.querySelector(".align-clips-audio-delay").addEventListener("change", this._listeners.audioDelayChanged);
             document.querySelector(".align-clips-audio-delay").addEventListener("keydown", this._listeners.audioDelayKeydown);
@@ -16,17 +28,37 @@
         },
 
         unload: function () {
+            document.querySelector(".app-page-title--align-clips").classList.remove("app-page-title--active");
+
+            document.querySelector(".align-clips-playpause-button").removeEventListener("click", this._listeners.playpauseButtonClicked);
+
+            let previewVideo = document.querySelector(".align-clips-preview");
+            previewVideo.removeEventListener("pause", this._listeners.previewPlayStateChanged);
+            previewVideo.removeEventListener("play", this._listeners.previewPlayStateChanged);
+            previewVideo.removeEventListener("playing", this._listeners.previewPlayStateChanged);
+            previewVideo.removeEventListener("ended", this._listeners.previewPlayStateChanged);
+
             document.querySelector(".align-clips-audio-delay").removeEventListener("change", this._listeners.audioDelayChanged);
             document.querySelector(".align-clips-audio-delay").removeEventListener("keydown", this._listeners.audioDelayKeydown);
             document.querySelector(".align-clips-next-step").removeEventListener("click", this._listeners.nextStep);
             AudioSwap.State.composition = null;
             AudioSwap.State.audioDelay = 0;
             document.querySelector(".align-clips-preview").src = null;
+            this.timerActive = false;
         },
 
         updateMediaPreviousSrc: function () {
             let previewVideo = document.querySelector(".align-clips-preview");
             previewVideo.src = URL.createObjectURL(AudioSwap.State.composition.generatePreviewMediaStreamSource(640, 360), { oneTimeOnly: true });
+        },
+
+        startTimer: function () {
+            this.timerActive = true;
+            requestAnimationFrame(AudioSwap.AlignClips._listeners.timerUpdate);
+        },
+
+        stopTimer: function () {
+            this.timerActive = false;
         },
 
         _listeners: {
@@ -62,6 +94,34 @@
 
             audioDelayKeydown: function (event) {
                 if (event.keyCode == 13) event.currentTarget.blur();
+            },
+
+            playpauseButtonClicked: function (event) {
+                let previewVideo = document.querySelector(".align-clips-preview");
+                if (previewVideo.paused) {
+                    previewVideo.play();
+                }
+                else {
+                    previewVideo.pause();
+                }
+            },
+
+            previewPlayStateChanged: function (event) {
+                let previewVideo = document.querySelector(".align-clips-preview");
+                if (previewVideo.paused) {
+                    document.querySelector(".align-clips-playpause-button").winControl.icon = "play";
+                    AudioSwap.AlignClips.stopTimer();
+                }
+                else {
+                    document.querySelector(".align-clips-playpause-button").winControl.icon = "pause";
+                    AudioSwap.AlignClips.startTimer();
+                }
+            },
+
+            timerUpdate: function (event) {
+                // update time
+                document.querySelector(".align-clips-playback-time").innerText = AudioSwap.TimeConverter.convertTime(document.querySelector(".align-clips-preview").currentTime * 1000, true);
+                if (AudioSwap.AlignClips.timerActive) requestAnimationFrame(AudioSwap.AlignClips._listeners.timerUpdate);
             },
 
             nextStep: function () {
