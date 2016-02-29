@@ -33,17 +33,18 @@
             document.querySelector(".align-clips-playpause-button").removeEventListener("click", this._listeners.playpauseButtonClicked);
 
             let previewVideo = document.querySelector(".align-clips-preview");
+            previewVideo.pause();
             previewVideo.removeEventListener("pause", this._listeners.previewPlayStateChanged);
             previewVideo.removeEventListener("play", this._listeners.previewPlayStateChanged);
             previewVideo.removeEventListener("playing", this._listeners.previewPlayStateChanged);
             previewVideo.removeEventListener("ended", this._listeners.previewPlayStateChanged);
+            previewVideo.src = null;
 
             document.querySelector(".align-clips-audio-delay").removeEventListener("change", this._listeners.audioDelayChanged);
             document.querySelector(".align-clips-audio-delay").removeEventListener("keydown", this._listeners.audioDelayKeydown);
             document.querySelector(".align-clips-next-step").removeEventListener("click", this._listeners.nextStep);
             AudioSwap.State.composition = null;
             AudioSwap.State.audioDelay = 0;
-            document.querySelector(".align-clips-preview").src = null;
             this.timerActive = false;
         },
 
